@@ -9,82 +9,15 @@ var pic = require("../pic.js"),
 imageObject = {
   headId:'',
   headUrl:'',
+  audioUrl:'',
   text:'',
   itemId:''
 }
 
 handle = {
-  raiseQuestion: function(object) {
-    var i, j, k, m, n,
-      currentId, audioId,
-      imageHeadId, imageHeadUrl = '',
-      imageItem0Id, imageItem0Url = '',
-      imageItem1Id, imageItem1Url = '',
-      imageItem2Id, imageItem2Url = '';
-
-    for (i = 0; i < question.list.length; i++) {
-      if (question.list[i].kind == "关系") {
-        j = question.list[i].item.length;
-        //随机取题目的index
-        currentId = Math.floor(Math.random() * j);
-        //取得题目的具体信息
-        object.relation = question.list[i].item[currentId].relation;
-        object.text = question.list[i].item[currentId].text;
-        //根据audio ID取得URL
-        audioId = question.list[i].item[currentId].audio;
-        for (k = 0; k < audio.list.length; k++) {
-          if (audio.list[k].kind == "关系") {
-            for (m = 0; m < audio.list[k].item.length; m++) {
-              if (audio.list[k].item[m].id == audioId) {
-                object.audioUrl = audio.list[k].item[m].url;
-                break;
-              }
-            }
-          }
-        };
-        //根据image Id取得url
-        imageHeadId = question.list[i].item[currentId].head;
-        imageItem0Id = question.list[i].item[currentId].options[0];
-        imageItem1Id = question.list[i].item[currentId].options[1];
-        imageItem2Id = question.list[i].item[currentId].options[2];
-        for (k = 0; k < pic.list.length; k++) {
-          if (pic.list[k].id == imageHeadId) { //head image
-            imageHeadUrl = pic.list[k].url[0];
-          }
-          if (pic.list[k].id == imageItem0Id) { //item image
-            imageItem0Url = pic.list[k].url[0];
-          }
-          if (pic.list[k].id == imageItem1Id) { //item image
-            imageItem1Url = pic.list[k].url[0];
-          }
-          if (pic.list[k].id == imageItem2Id) { //item image
-            imageItem2Url = pic.list[k].url[0];
-          }
-          if (imageHeadUrl != '' && imageItem0Url != '' && imageItem1Url != '' && imageItem2Url != '') {
-            break;
-          }
-        };
-        object.headUrl = imageHeadUrl;
-        object.items[0] = {
-          'id': imageItem0Id,
-          'url': imageItem0Url
-        };
-        object.items[1] = {
-          'id': imageItem1Id,
-          'url': imageItem1Url
-        };
-        object.items[2] = {
-          'id': imageItem2Id,
-          'url': imageItem2Url
-        };
-        //answerid
-        object.answerId = question.list[i].item[currentId].answer;
-      }
-    }
-  },
   //根据pic.js原始数据随机出题
   raiseRandomQuestion: function(object) {
-    var answerUrl;
+    var answerUrl, titleSong;
 
     //清空答案选项
     object.items = [];
@@ -95,6 +28,7 @@ handle = {
     object.headUrl = imageObject.headUrl;
     object.text = imageObject.text;
     object.answerId = imageObject.itemId;
+    object.audioUrl = imageObject.audioUrl;
     //清空属性值
     utils.clearProperty(imageObject);
 
@@ -113,6 +47,12 @@ handle = {
 
     //对items进行随机重排序
     object.items.sort(_fn.randomSort);
+
+    //播放题目音频
+    titleSong = wx.createInnerAudioContext();
+    titleSong.startTime = 5;
+    titleSong.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46';
+    titleSong.play();        
 
   }
 }
@@ -141,6 +81,13 @@ _fn = {
       object.itemId = item1Id = pic.list[randomIdIndex].relation[randomRelIndex].id[randomItemIndex];
       //取得所有子项ID。干扰项不能在这些子项里面
       targets = pic.list[randomIdIndex].relation[randomRelIndex].id;
+      //取得题目音频地址
+      for (i=0;i<audio.list.length;i++){
+        if (audio.list[i].text == pic.list[randomIdIndex].relation[randomRelIndex].text){
+          object.audioUrl = audio.list[i].url;
+          break;
+        }
+      }
     } else {
       //取得干扰项的图片
       for (;;) {
@@ -172,7 +119,6 @@ _fn = {
       if (pic.list[i].id==id){
         randomUrlIndex = Math.floor(Math.random() * pic.list[i].url.length);
         return pic.list[i].url[randomUrlIndex];
-        break;
       }
     }
   },

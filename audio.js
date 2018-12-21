@@ -3,29 +3,27 @@ var audio;
 /*音频属性*/
 audio = {
   list: [{
-    type: '关系',
-    item: [{
-      id: '001',
-      text: '父-女',
-      url: ''
+    text: '妈妈',
+    url: '1'
+  },{
+      text: '爸爸',
+      url: '2'
+  },{
+      text: '女儿',
+      url: '3'    
     }, {
-      id: '002',
-      text: '母-女',
-      url: ''
+      text: '儿子',
+      url: '4'
     }, {
-      id: '100',
-      text: '女-母',
-      url: ''
+      text: '姥姥',
+      url: '5'
     }, {
-      id: '101',
-      text: '女-父',
-      url: ''
+      text: '姥爷',
+      url: '6'
     }, {
-      id: '200',
-      text: '姥姥-孙女',
-      url: ''
+      text: '奶奶',
+      url: '7'
     }]
-  }]
 }
 
 module.exports=audio;
