@@ -1,0 +1,17 @@
+<template name="vGame">
+  <view class="title">
+      {{text}}
+  </view>
+  <view class="headimage">
+    <image src='{{headUrl}}'></image>
+  </view>
+  <view class="itemimage" wx:for="{{items}}" bindtap="gameProxy" >
+    <image data-event-type="checkAnswer" data-select-id="{{item.id}}" src='{{item.url}}' ></image>
+    <view class="feedback">
+      {{feedback}}
+    </view>
+    <view class="next" data-event-type="next" wx:if="{{feedback == '' ? false : true}}">
+      下一题
+    </view>
+  </view>  
+</template>

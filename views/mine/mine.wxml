@@ -1,0 +1,5 @@
+<template name="vMine">
+  <view>
+    This is mine page.
+  </view>
+</template>

@@ -1,0 +1,14 @@
+<import src="../../views/game/game.wxml" />
+<import src="../../views/record/record.wxml" />
+<import src="../../views/mine/mine.wxml" />
+
+<view>
+  <template is="{{currentView}}" data="{{...currentData}}"></template>
+</view>
+
+<view class="base-style toolbar">
+  <view wx:for="{{tabs}}" data-view="{{item.view}}" bindtap="changeTab" class="tab {{item.view==currentView ? 'current' : ''}}">
+    <view class="icon bar {{item.className}} {{item.view==currentView ? 'current' : ''}}"></view>
+    {{item.text}}
+  </view>
+</view>

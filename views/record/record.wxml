@@ -1,0 +1,5 @@
+<template name="vRecord">
+  <view>
+    This is record page.
+  </view>
+</template>
