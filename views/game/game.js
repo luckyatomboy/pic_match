@@ -19,7 +19,6 @@ nextQuestion = {
 handle = {
   //页面渲染
   render:function( callerPage ){
-    var titleSong;
 
     //页面初始化
     _fn.init( callerPage );
@@ -31,11 +30,6 @@ handle = {
       currentView : 'vGame',
       currentData : nextQuestion
     });
-    //播放题目音频
-    titleSong = wx.createInnerAudioContext();
-    titleSong.startTime = 5;
-    titleSong.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46';
-    titleSong.play();    
   }
 };
 
@@ -67,7 +61,7 @@ _fn = {
     if (target.dataset.selectId == answerId) {
       data.feedback = "答对了！"; 
       answerSong.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46';
-      answerSong.play();
+      //answerSong.play();
     } else {
       data.feedback = "答错了！";
     }

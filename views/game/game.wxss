@@ -1,7 +1,7 @@
 .title { border-top: solid 2px #eee; padding: 50rpx 0; font-size: 60rpx; text-align: center;}
-.headimage { border: 1px solid #ccc; width:70%; margin: auto; }
-.headimage image { width:90%; }
-.itemimage { display: inline-block; border: 1px solid #ccc; width:200rpx; height:300rpx; margin: 50rpx 20rpx; }
+.headimage { /*border: 1px solid #ccc;*/ width:70%; margin: auto; }
+.headimage image { width:100%; }
+.itemimage { display: inline-block; /*border: 1px solid #ccc;*/ width:200rpx; height:300rpx; margin: 80rpx 20rpx; }
 .itemimage image { width:200rpx; height:280rpx;  }
 .feedback { position: fixed; font-size: 45rpx; width: 250rpx; left: 300rpx; bottom: 150rpx; }
 .next { width: 120rpx; height: 50rpx; border: 1px solid #ccc; position: fixed; right: 20rpx; bottom:150rpx; }
